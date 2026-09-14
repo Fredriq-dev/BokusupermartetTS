@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const productSchema = new mongoose.Schema({
     name: {
         type:String,
@@ -20,7 +21,18 @@ const productSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
-
+    isAvailable: {
+        type:Boolean,
+        default:true
+    },
+    image: {
+        type:String,
+        required:false
+    },
+    color: {
+        type:String,
+        required:false
+    }
 },
 {timestamps:true}
 )
@@ -29,3 +41,4 @@ const productSchema = new mongoose.Schema({
 const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product; //export the model to use it in other files 
+
