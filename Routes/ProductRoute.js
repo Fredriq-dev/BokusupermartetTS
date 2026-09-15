@@ -1,6 +1,6 @@
-// Call the controller
+// import the express module
 const express = require("express");
-const router = express.Router(); // create a router instance
+const router = express.Router(); // create a router instance to be able to navigate to different parts of the controller
 
 // import authentication middleware
 const { protect } = require('../Middleware/auth');
@@ -22,6 +22,4 @@ router.get("/getallproducts", protect, productController.getAllProducts);
 
 //export the router to use it in other files
 module.exports = router;
-
-
 
