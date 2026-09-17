@@ -5,7 +5,7 @@ const User = require('../Models/Users');
 exports.createUser = async (req, res) => {
   try {
     // request body
-    const { name, email, password, gender, phone, role } = req.body;
+    const { name, email, password, gender, phone, role, HasAdminAccess } = req.body;
 
     // check if all required fields are provided
     if (!name || !email || !password || !gender || !phone) {
@@ -35,7 +35,7 @@ exports.createUser = async (req, res) => {
       password: hashedPassword,
       gender: req.body.gender,
       phone: req.body.phone,
-      role: req.body.role || 'user',// default role is 'user' if not provided
+      role: req.body.role,// default role is 'user' if not provided
       HasAdminAccess: req.body.HasAdminAccess || false// default is false if not provided
     });
 

@@ -1,13 +1,11 @@
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
+
+dotenv.config(); // Load environment variables before using them
+
 const connectDB = require("./Config/databaseConfig");
-
-// Load environment variables from .env file
-dotenv.config();
-
-// Connect to MongoDB
-connectDB();
+connectDB(); // Connect to MongoDB
 
 app.use(express.json()); // middleware to parse JSON request bodies
 
