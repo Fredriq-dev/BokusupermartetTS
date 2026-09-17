@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
   role:{
     type: String,
     enum: ['superadmin', 'storekeeper', 'salesperson'],// defines the allowed roles
-    default: 'salesperson'
+    default: 'salesperson'// default role is 'salesperson' if not provided
   },
 },
 {timestamps: true} // for logging date created and date modified
