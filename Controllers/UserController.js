@@ -69,7 +69,7 @@ exports.loginUser = async (req, res) => {
     // check if password is correct
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(400).json({ message: 'Invalid password' });
+      return res.status(401).json({ message: 'Invalid password' });
     }
 
     // generate a token (you can use JWT or any other method to generate a token)
@@ -83,6 +83,4 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ message: 'Error logging in', error: error.message });
   }
 };
-
-
 

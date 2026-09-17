@@ -81,15 +81,16 @@ exports.updateProduct = async (req, res) => {
 };
 
 // get a product by id
-exports.getProduct = async (req, res) => {
+exports.getProductById = async (req, res) => {
     try {
-        const product = await Product.findById(req.params.id);
+        const { id } = req.params; // where id is the product to be retrieved
+        const product = await Product.findById(id);
         if (!product) {
             return res.status(404).json({message: "Product not found"});
         }
-        res.status(200).json(product);
+        res.status(200).json({message: "Product retrieved successfully", product});
     } catch (error) {
-        res.status(400).json({message: "Error getting product", error: error.message});
+        res.status(500).json({message: "Error getting product", error: error.message});
     }
 };
 
@@ -97,7 +98,7 @@ exports.getProduct = async (req, res) => {
 exports.getAllProducts = async (req, res) => {
     try {
         const products = await Product.find();
-        res.status(200).json(products);
+        res.status(200).json({message: "Products retrieved successfully", products});
     } catch (error) {
         res.status(500).json({message: "Error getting products", error: error.message});
     }

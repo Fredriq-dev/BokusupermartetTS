@@ -16,7 +16,7 @@ router.post("/createproduct", protect, authorize('supperadmin'), productControll
 router.post("/createproductwithimage", protect, productController.createProductWithImage); // create a new product with image
 
 router.put("/updateproduct/:id", protect, productController.updateProduct); // update a product
-router.get("/getproductbyid/:id", protect, productController.getProduct); // get a product by id
+router.get("/getproductbyid/:id", protect, productController.getProductById); // get a product by id
 router.get("/getallproducts", protect, productController.getAllProducts);
 
 
