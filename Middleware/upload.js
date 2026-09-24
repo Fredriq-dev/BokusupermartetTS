@@ -6,7 +6,7 @@ const cloudinary = require("../Config/cloudinary");
 const storage = cloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder:"Bokusupermarket",
+        folder:"bokusupermarket",
         allowedFormats:['jpg', 'jpeg', 'png'],
         transformation:[{width:500, height:500, crop:"limit"}]
     }

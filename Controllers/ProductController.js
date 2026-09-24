@@ -43,7 +43,7 @@ exports.createProductWithImage = async (req, res) => {
             }
         })
 
-        const { name, size, image, description, price, quantity, color } = req.body;
+        const { name, size, image, description, price, quantity, isAvailable, color } = req.body;
        // check if an image file is provided
         if (!req.file) {
             return res.status(400).json({message: "Please upload an image"});
@@ -54,6 +54,7 @@ exports.createProductWithImage = async (req, res) => {
             description,
             price,
             quantity,
+            isAvailable,
             color,
             image: req.file.path//save the image path to the database
         })
@@ -68,7 +69,7 @@ exports.createProductWithImage = async (req, res) => {
 exports.updateProduct = async (req, res) => {
     try {
         const { id } = req.params; // where id is the product to be updated
-        const { name, size, description, price, quantity, color } = req.body;
+        const { name, size, description, price, quantity, isAvailable, color } = req.body;
         
         const product = await Product.findByIdAndUpdate(id, {name, size, description, price, quantity}, {new: true});
         if (!product) {

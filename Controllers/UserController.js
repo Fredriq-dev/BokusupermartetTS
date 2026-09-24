@@ -76,9 +76,9 @@ exports.loginUser = async (req, res) => {
     //const token = generateToken(user); // implement your token generation logic here
 
     const jwt = require('jsonwebtoken');
-    const token = jwt.sign({ id: user._id, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id, email: user.email, role: user.role, HasAdminAccess: user.HasAdminAccess }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    res.status(200).json({ message: 'Login successful', token });
+    res.status(200).json({ message: 'Login successful', token, role: user.role, HasAdminAccess: user.HasAdminAccess });
   } catch (error) {
     res.status(500).json({ message: 'Error logging in', error: error.message });
   }

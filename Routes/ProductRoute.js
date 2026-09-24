@@ -12,10 +12,10 @@ const { authorize } = require('../Middleware/role');
 const productController = require("../Controllers/ProductController");
 
 // define the routes for the product
-router.post("/createproduct", protect, authorize('supperadmin'), productController.createProduct); // create a new product
-router.post("/createproductwithimage", protect, productController.createProductWithImage); // create a new product with image
+router.post("/createproduct", protect, authorize('superadmin'), productController.createProduct); // create a new product
+router.post("/createproductwithimage", protect, authorize('superadmin'), productController.createProductWithImage); // create a new product with image
 
-router.put("/updateproduct/:id", protect, productController.updateProduct); // update a product
+router.put("/updateproduct/:id", protect, authorize('storekeeper'), productController.updateProduct); // update a product
 router.get("/getproductbyid/:id", protect, productController.getProductById); // get a product by id
 router.get("/getallproducts", protect, productController.getAllProducts);
 
