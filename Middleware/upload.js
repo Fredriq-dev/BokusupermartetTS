@@ -1,18 +1,44 @@
 // upload middleware
 const multer = require("multer");
-const {cloudinaryStorage} = require("multer-storage-cloudinary");
 const cloudinary = require("../Config/cloudinary");
 
-const storage = cloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-        folder:"bokusupermarket",
-        allowedFormats:['jpg', 'jpeg', 'png'],
-        transformation:[{width:500, height:500, crop:"limit"}]
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024
+    },
+    fileFilter: (req, file, cb) => {
+        const allowedMimeTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+        if (!allowedMimeTypes.includes(file.mimetype)) {
+            return cb(new Error("Only JPEG and PNG images are allowed."));
+        }
+
+        cb(null, true);
     }
-})
+});
 
-const upload = multer({storage: storage});
+const uploadToCloudinary = (buffer, filename) => {
+    return new Promise((resolve, reject) => {
+        const publicId = filename ? filename.replace(/\.[^/.]+$/, "") : `product-${Date.now()}`;
 
-module.exports = upload;
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: "bokusupermarket",
+                public_id: publicId,
+                resource_type: "image"
+            },
+            (error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            }
+        );
 
+        stream.end(buffer);
+    });
+};
+
+module.exports = { upload, uploadToCloudinary };
